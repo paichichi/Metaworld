@@ -1,14 +1,13 @@
 import os, time
+os.environ["MUJOCO_GL"] = "egl"
+os.environ["EGL_PLATFORM"] = "surfaceless"
+os.environ["LD_LIBRARY_PATH"] = "/usr/lib/nvidia:" + os.environ.get("LD_LIBRARY_PATH", "")
+
 import gymnasium as gym
 import metaworld
 import mujoco
 import imageio.v2 as imageio
 from metaworld.policies.sawyer_reach_v3_policy import SawyerReachV3Policy
-
-import os
-os.environ.setdefault("MUJOCO_GL", "egl")
-os.environ.setdefault("EGL_PLATFORM", "surfaceless")
-os.environ["LD_LIBRARY_PATH"] = "/usr/lib/nvidia:" + os.environ.get("LD_LIBRARY_PATH", "")
 
 seed = 0
 save_dir = f"/home/xli990/paichichi/videos/reach_2views/{int(time.time())}"
@@ -37,7 +36,7 @@ cam_names = [model.cam(i).name for i in range(model.ncam)]
 print("available cameras:", cam_names)
 
 camA = "corner"
-camB = "gripperPOV"
+camB = "topview"
 
 H, W = 480, 480
 rendererA = mujoco.Renderer(model, height=H, width=W)
