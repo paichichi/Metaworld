@@ -35,7 +35,7 @@ model, data = u.model, u.data
 cam_names = [model.cam(i).name for i in range(model.ncam)]
 print("available cameras:", cam_names)
 
-camA = "corner"
+camA = "corner2"
 camB = "topview"
 
 H, W = 480, 480
@@ -48,7 +48,6 @@ writer_a = imageio.get_writer(mp4_a, fps=30)
 writer_b = imageio.get_writer(mp4_b, fps=30)
 
 try:
-
     for t in range(500):
 
         rendererA.update_scene(data, camera=camA)
@@ -78,6 +77,14 @@ try:
     print("done, steps:", t+1, "success:", info.get("success", None))
     print(info)
 finally:
+    try:
+        rendererA.close()
+    except:
+        pass
+    try:
+        rendererB.close()
+    except:
+        pass
     writer_a.close()
     writer_b.close()
     env.close()
